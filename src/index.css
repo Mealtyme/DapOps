@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@layer base {
+  :root {
+    --background: 220 16% 8%;
+    --foreground: 210 20% 92%;
+    --card: 220 14% 11%;
+    --card-foreground: 210 20% 92%;
+    --popover: 220 14% 11%;
+    --popover-foreground: 210 20% 92%;
+    --primary: 214 100% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 12% 15%;
+    --secondary-foreground: 210 20% 80%;
+    --muted: 220 12% 15%;
+    --muted-foreground: 215 15% 55%;
+    --accent: 214 100% 60%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 12% 18%;
+    --input: 220 12% 14%;
+    --ring: 214 100% 60%;
+    --radius: 0.5rem;
+    --success: 142 72% 40%;
+    --warning: 38 92% 50%;
+    --danger: 0 72% 51%;
+    --info: 214 100% 60%;
+    --sidebar-width: 240px;
+  }
+
+  * { border-color: hsl(var(--border)); box-sizing: border-box; }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: hsl(var(--background)); }
+  ::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 10px; }
+  #:-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground)); }
+}
+
+@layer utilities {
+  .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.07); }
+  .glass-card { background: hsl(var(--card)); border: 1px solid hsl(var(--border)); }
+  .text-gradient { background: linear-gradient(135deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .status-planned { color: #9ca3af; background: rgba(156,163,175,0.12); }
+  .status-arrived { color: #fbbf24; background: rgba(251,191,36,0.12); }
+  .status-unloading { color: #60a5fa; background: rgba(96,165,250,0.12); }
+  .status-completed { color: #34d399; background: rgba(52,211,153,0.12); }
+  .status-on_time { color: #34d399; background: rgba(52,211,153,0.12); }
+  .status-at_risk { color: #fbbf24; background: rgba(251,191,36,0.12); }
+  .status-late { color: #f87171; background: rgba(248,113,113,0.12); }
+  .status-pending { color: #9ca3af; background: rgba(156,163,175,0.12); }
+  .status-low { color: #f87171; background: rgba(248,113,113,0.12); }
+  .status-healthy { color: #34d399; background: rgba(52,211,153,0.12); }
+  .status-surplus { color: #fbbf24; background: rgba(251,191,36,0.12); }
+  .tier-tier_a { color: #f87171; background: rgba(248,113,113,0.12); }
+  .tier-tier_b { color: #fbbf24; background: rgba(251,191,36,0.12); }
+  .tier-tier_c { color: #60a5fa; background: rgba(96,165,250,0.12); }
+  .tier-other { color: #9ca3af; background: rgba(156,163,175,0.12); }
+  .retailer-walmart { color: #60a5fa; }
+  .retailer-homedepot { color: #fb923c; }
+  .retailer-canadiantire { color: #f87171; }
+  .retailer-lowes { color: #818cf8; }
+  .retailer-rona { color: #34d399; }
+  .shimmer { background: linear-gradient(90deg, hsl(var(--card)) 25%, hsl(var(--secondary)) 50%, hsl(var(--card)) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+  @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+  .pulse-dot { animation: pulseDot 2s infinite; }
+  @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+  .scrollbar-thick::-webkit-scrollbar { width: 10px; height: 10px; }
+  .scrollbar-thick::-webkit-scrollbar-track { background: hsl(var(--card)); border-radius: 0; }
+  .scrollbar-thick::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 4px; border: 2px solid hsl(var(--card)); }
+  .scrollbar-thick;:-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground)); }
+  .scrollbar-thick;:-webkit-scrollbar-corner { background: hsl(var(--card)); }
+}
