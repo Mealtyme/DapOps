@@ -2,10 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;40;500;600;700;800&display=swap');
 
 @layer base {
+  /* ── LIGHT MODE (default) ────────────────────── */
   :root {
+    --background: 210 20% 97%;        /* slate-50: soft cool-gray page */
+    --foreground: 222 47% 11%;        /* slate-900: near-black text    */
+    --card: 0 0% 100%;                /* pure white card surfaces      */
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 214 100% 52%;          /* vivid blue — same brand hue   */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 215 25% 93%;         /* slate-100 */
+    --secondary-foreground: 215 25% 30%;
+    --muted: 215 25% 93%;             /* slate-100 */
+    --muted-foreground: 215 16% 47%;  /* slate-500 */
+    --accent: 214 100% 95%;           /* blue-50 tint for hover */
+    --accent-foreground: 214 100% 35%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 32% 88%;            /* slate-200: crisp light border */
+    --input: 214 32% 94%;             /* slate-100 */
+    --ring: 214 100% 52%;
+    --radius: 0.5rem;
+
+    /* Sidebar gets a slightly deeper surface in light mode */
+    --sidebar-bg: 222 47% 11%;        /* dark sidebar even in light mode (intentional) */
+    --sidebar-width: 240px;
+
+    /* Custom ops semantic colors */
+    --success: 142 72% 36%;
+    --warning: 38 92% 48%;
+    --danger: 0 72% 51%;
+    --info: 214 100% 52%;
+  }
+
+  /* ── DARK MODE ────────────────────── */
+  .dark {
     --background: 220 16% 8%;
     --foreground: 210 20% 92%;
     --card: 220 14% 11%;
@@ -18,19 +53,21 @@
     --secondary-foreground: 210 20% 80%;
     --muted: 220 12% 15%;
     --muted-foreground: 215 15% 55%;
-    --accent: 214 100% 60%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 220 12% 18%;
+    --accent-foreground: 210 20% 92%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
     --border: 220 12% 18%;
     --input: 220 12% 14%;
     --ring: 214 100% 60%;
-    --radius: 0.5rem;
+
+    --sidebar-bg: 220 14% 9%;
+    --sidebar-width: 240px;
+
     --success: 142 72% 40%;
     --warning: 38 92% 50%;
     --danger: 0 72% 51%;
     --info: 214 100% 60%;
-    --sidebar-width: 240px;
   }
 
   * { border-color: hsl(var(--border)); box-sizing: border-box; }
@@ -47,16 +84,47 @@
     overflow: hidden;
   }
 
-  ::-webkit-scrollbar { width: 5px; height: 5px; }
-  ::-webkit-scrollbar-track { background: hsl(var(--background)); }
-  ::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 10px; }
-  #:-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground)); }
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground));
+  }
 }
 
 @layer utilities {
-  .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.07); }
-  .glass-card { background: hsl(var(--card)); border: 1px solid hsl(var(--border)); }
-  .text-gradient { background: linear-gradient(135deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  /* Glass: dark mode = near-transparent white; light mode = near-transparent card */
+  .glass {
+    background: hsl(var(--card) / 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--border));
+  }
+  .glass-card {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+  }
+  /* Sidebar background driven by CSS variable */
+  .sidebar-bg {
+    background: hsl(var(--sidebar-bg));
+  }
+  /* Hover tint that works in both themes */
+  .hover-tint:hover {
+    background: hsl(var(--muted));
+  }
+  .text-gradient {
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
   .status-planned { color: #9ca3af; background: rgba(156,163,175,0.12); }
   .status-arrived { color: #fbbf24; background: rgba(251,191,36,0.12); }
   .status-unloading { color: #60a5fa; background: rgba(96,165,250,0.12); }
@@ -72,18 +140,32 @@
   .tier-tier_b { color: #fbbf24; background: rgba(251,191,36,0.12); }
   .tier-tier_c { color: #60a5fa; background: rgba(96,165,250,0.12); }
   .tier-other { color: #9ca3af; background: rgba(156,163,175,0.12); }
+
   .retailer-walmart { color: #60a5fa; }
   .retailer-homedepot { color: #fb923c; }
   .retailer-canadiantire { color: #f87171; }
   .retailer-lowes { color: #818cf8; }
   .retailer-rona { color: #34d399; }
-  .shimmer { background: linear-gradient(90deg, hsl(var(--card)) 25%, hsl(var(--secondary)) 50%, hsl(var(--card)) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
-  @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+  .shimmer {
+    background: linear-gradient(90deg, hsl(var(--card)) 25%, hsl(var(--secondary)) 50%, hsl(var(--card)) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
   .pulse-dot { animation: pulseDot 2s infinite; }
-  @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
-  .scrollbar-thick::-webkit-scrollbar { width: 10px; height: 10px; }
+  @keyframes pulseDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  /* Thick scrollbar for table areas — easy to grab, Excel-style */
+  .scrollbar-thick;::-webkit-scrollbar { width: 10px; height: 10px; }
   .scrollbar-thick::-webkit-scrollbar-track { background: hsl(var(--card)); border-radius: 0; }
   .scrollbar-thick::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 4px; border: 2px solid hsl(var(--card)); }
-  .scrollbar-thick;:-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground)); }
-  .scrollbar-thick;:-webkit-scrollbar-corner { background: hsl(var(--card)); }
+  .scrollbar-thick::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground)); }
+  .scrollbar-thick::-webkit-scrollbar-corner { background: hsl(var(--card)); }
 }
